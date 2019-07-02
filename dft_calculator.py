@@ -91,124 +91,139 @@ class Window(QWidget, Ui_Form):
         self.button_clean.clicked.connect(self.clean);
         
     def set_Fs(self):
-        self.Fs = float(self.sample_rate.text());
-        self.fh = self.Fs / 2;
-        self.sample_rate.setText(str(self.Fs));
-        self.frequency_range.setText(str(self.fh));
+        try:
+            self.Fs = float(self.sample_rate.text());
+            self.fh = self.Fs / 2;
+            self.sample_rate.setText(str(self.Fs));
+            self.frequency_range.setText(str(self.fh));
         
-        if self.T is not None:
-            self.N = self.Fs * self.T;
-            self.signal_length.setText(str(self.N));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
-            
-        if self.N is not None:
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
-            
-        if self.f0 is not None:
-            self.N = self.Fs / self.f0;
-            self.signal_length.setText(str(self.N));
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
+            if self.T is not None:
+                self.N = self.Fs * self.T;
+                self.signal_length.setText(str(self.N));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+                
+            if self.N is not None:
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+                
+            if self.f0 is not None:
+                self.N = self.Fs / self.f0;
+                self.signal_length.setText(str(self.N));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+        except:
+            pass;
     
     def set_T(self):
-        self.T = float(self.sample_length.text());
-        self.f0 = 1 / self.T;
-        self.sample_length.setText(str(self.T));
-        self.frequency_resolution.setText(str(self.f0));
-        
-        if (self.Fs is not None) or (self.fh is not None):
-            self.N = self.Fs * self.T;
-            self.signal_length.setText(str(self.N));
-            self.f0 = self.Fs / self.N;
+        try:
+            self.T = float(self.sample_length.text());
+            self.f0 = 1 / self.T;
+            self.sample_length.setText(str(self.T));
             self.frequency_resolution.setText(str(self.f0));
-        
-        if self.N is not None:
-            self.Fs = self.N / self.T;
-            self.sample_rate.setText(str(self.Fs));
-            self.fh = self.Fs / 2;
-            self.frequency_range.setText(str(self.fh));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
+            
+            if (self.Fs is not None) or (self.fh is not None):
+                self.N = self.Fs * self.T;
+                self.signal_length.setText(str(self.N));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+            
+            if self.N is not None:
+                self.Fs = self.N / self.T;
+                self.sample_rate.setText(str(self.Fs));
+                self.fh = self.Fs / 2;
+                self.frequency_range.setText(str(self.fh));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+        except:
+            pass;
         
     def set_N(self):
-        self.N = float(self.signal_length.text());
-        self.signal_length.setText(str(self.N));
-        
-        if self.f0 is not None:
-            self.Fs = self.N * self.f0;
-            self.sample_rate.setText(str(self.Fs));
-            self.fh = self.Fs / 2;
-            self.frequency_range.setText(str(self.fh));
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
-        
-        if (self.Fs is not None) or (self.fh is not None):
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
+        try:
+            self.N = float(self.signal_length.text());
+            self.signal_length.setText(str(self.N));
             
-        if self.T is not None:
-            self.Fs = self.N / self.T;
-            self.sample_rate.setText(str(self.Fs));
-            self.fh = self.Fs / 2;
-            self.frequency_range.setText(str(self.fh));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
+            if self.f0 is not None:
+                self.Fs = self.N * self.f0;
+                self.sample_rate.setText(str(self.Fs));
+                self.fh = self.Fs / 2;
+                self.frequency_range.setText(str(self.fh));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+            
+            if (self.Fs is not None) or (self.fh is not None):
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+                
+            if self.T is not None:
+                self.Fs = self.N / self.T;
+                self.sample_rate.setText(str(self.Fs));
+                self.fh = self.Fs / 2;
+                self.frequency_range.setText(str(self.fh));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+        except:
+            pass;
         
     def set_f0(self):
-        self.f0 = float(self.frequency_resolution.text());
-        self.T = 1 / self.f0;
-        self.sample_length.setText(str(self.T));
-        self.frequency_resolution.setText(str(self.f0));
-        
-        if self.N is not None:
-            self.Fs = self.N * self.f0;
-            self.sample_rate.setText(str(self.Fs));
-            self.fh = self.Fs / 2;
-            self.frequency_range.setText(str(self.fh));
-            self.T = self.N / self.Fs;
+        try:
+            self.f0 = float(self.frequency_resolution.text());
+            self.T = 1 / self.f0;
             self.sample_length.setText(str(self.T));
-        
-        if self.fh is not None:
-            self.N = self.Fs / self.f0;
-            self.signal_length.setText(str(self.N));
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
+            self.frequency_resolution.setText(str(self.f0));
             
-        if self.Fs is not None:
-            self.N = self.Fs / self.f0;
-            self.signal_length.setText(str(self.N));
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
+            if self.N is not None:
+                self.Fs = self.N * self.f0;
+                self.sample_rate.setText(str(self.Fs));
+                self.fh = self.Fs / 2;
+                self.frequency_range.setText(str(self.fh));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+            
+            if self.fh is not None:
+                self.N = self.Fs / self.f0;
+                self.signal_length.setText(str(self.N));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+                
+            if self.Fs is not None:
+                self.N = self.Fs / self.f0;
+                self.signal_length.setText(str(self.N));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+        except:
+            pass;
         
     def set_fh(self):
-        self.fh = float(self.frequency_range.text());
-        self.Fs = self.fh * 2;
-        self.sample_rate.setText(str(self.Fs));
-        self.frequency_range.setText(str(self.fh));
-        
-        if self.f0 is not None:
-            self.N = self.Fs / self.f0;
-            self.signal_length.setText(str(self.N));
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
+        try:
+            self.fh = float(self.frequency_range.text());
+            self.Fs = self.fh * 2;
+            self.sample_rate.setText(str(self.Fs));
+            self.frequency_range.setText(str(self.fh));
             
-        if self.T is not None:
-            self.N = self.Fs * self.T;
-            self.signal_length.setText(str(self.N));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
-            
-        if self.N is not None:
-            self.T = self.N / self.Fs;
-            self.sample_length.setText(str(self.T));
-            self.f0 = self.Fs / self.N;
-            self.frequency_resolution.setText(str(self.f0));
+            if self.f0 is not None:
+                self.N = self.Fs / self.f0;
+                self.signal_length.setText(str(self.N));
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+                
+            if self.T is not None:
+                self.N = self.Fs * self.T;
+                self.signal_length.setText(str(self.N));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+                
+            if self.N is not None:
+                self.T = self.N / self.Fs;
+                self.sample_length.setText(str(self.T));
+                self.f0 = self.Fs / self.N;
+                self.frequency_resolution.setText(str(self.f0));
+        except:
+            pass;
         
     def clean(self):
         self.Fs = None;
